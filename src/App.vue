@@ -29,23 +29,39 @@
   .input.is-huge {
     height: 40px;
   }
+
+  main {
+    display: block;
+    padding: 2em;
+    background-color: white;
+  }
+  .wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
 </style>
 
 <template>
-  <main class="container is-fluid">
-    <div class="control">
-      <div class="control">{{ colorName }}</div>
-      <input
-      v-model="color"
-      class="input is-large control"
-      type="text"
-      placeholder="Your Color (ex.: #FFF)">
-      <div class="control is-grouped">
-        <button @click="lighten" class="button control">Lighten</button>
-        <button @click="darken" class="button control">Darken</button>
+  <div class="wrap" :style="{ backgroundColor: color }">
+    <main>
+      <div class="control">
+        <div class="control">{{ colorName }}</div>
+        <input
+        v-model="color"
+        class="input is-large control"
+        type="text"
+        placeholder="Your Color (ex.: #FFF)">
+        <div class="control is-grouped">
+          <button @click="lighten" class="button control">Lighten</button>
+          <button @click="darken" class="button control">Darken</button>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
 </template>
 
 <script>
