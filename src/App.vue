@@ -50,7 +50,9 @@
     <main>
       <div class="control">
         <div class="control">{{ colorName }}</div>
-        <chrome @change-color="onChangeColor" v-model="color"></chrome>
+        <div class="control">
+          <chrome @change-color="onChangeColor" v-model="color"></chrome>
+        </div>
         <input
         v-model="color"
         class="input is-large control"
