@@ -50,6 +50,7 @@
     <main>
       <div class="control">
         <div class="control">{{ colorName }}</div>
+        <chrome @change-color="onChangeColor" v-model="color"></chrome>
         <input
         v-model="color"
         class="input is-large control"
@@ -67,6 +68,8 @@
 <script>
   import colorLib from './components/Color/colorLib'
   import lightenDarkenColorLib from './components/Color/lightenDarkenColorLib'
+
+  import { Chrome } from 'vue-color'
 
   export default {
 
@@ -99,6 +102,16 @@
       lighten () {
         this.color = lightenDarkenColorLib(this.color, 10)
       },
+
+      // onChange method called when the event 'change-color' is emitted
+      onChangeColor (val) {
+        this.color = val.hex
+      },
+
+    },
+
+    components: {
+      Chrome,
     },
 
   }

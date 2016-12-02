@@ -70,6 +70,7 @@
     "sinon": "^1.17.3",
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",
+    "vue-color": "^2.0.2",
     "vue-loader": "^9.4.0",
     "vue-style-loader": "^1.0.0",
     "webpack": "^1.13.2",
