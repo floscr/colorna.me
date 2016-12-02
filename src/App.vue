@@ -45,10 +45,13 @@
 </template>
 
 <script>
-  import colorNames from './data/colors'
-  import _ from 'lodash'
+  import colorLib from './components/Color/colorLib'
 
   export default {
+
+    mounted () {
+      colorLib.init()
+    },
 
     data: () => ({
       color: '',
@@ -56,11 +59,9 @@
 
     computed: {
       colorName () {
-        let color = this.color.replace('#', '')
-        if (color.length === 3) {
-          color = color + color
+        if (this.color !== '' && this.color.length >= 3) {
+          return colorLib.name(this.color)[1]
         }
-        return colorNames[color]
       },
     },
 
