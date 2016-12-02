@@ -34,18 +34,23 @@
 <template>
   <main class="container is-fluid">
     <div class="control">
-      {{ colorName }}
+      <div class="control">{{ colorName }}</div>
       <input
       v-model="color"
-      class="input is-large is-huge"
+      class="input is-large control"
       type="text"
       placeholder="Your Color (ex.: #FFF)">
+      <div class="control is-grouped">
+        <button @click="lighten" class="button control">Lighten</button>
+        <button @click="darken" class="button control">Darken</button>
+      </div>
     </div>
   </main>
 </template>
 
 <script>
   import colorLib from './components/Color/colorLib'
+  import lightenDarkenColorLib from './components/Color/lightenDarkenColorLib'
 
   export default {
 
@@ -55,13 +60,28 @@
 
     data: () => ({
       color: '',
+      amount: 10,
     }),
 
     computed: {
+      safeColor () {
+
+      },
+
       colorName () {
         if (this.color !== '' && this.color.length >= 3) {
           return colorLib.name(this.color)[1]
         }
+      },
+    },
+
+    methods: {
+      darken () {
+        this.color = lightenDarkenColorLib(this.color, -10)
+      },
+
+      lighten () {
+        this.color = lightenDarkenColorLib(this.color, 10)
       },
     },
 
