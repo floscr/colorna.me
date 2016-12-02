@@ -4,10 +4,10 @@ import Vue from 'vue'
 import store from 'src/store'
 import App from 'src/App'
 
+import 'bulma/css/bulma.css'
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
-  store
-  render: h => h(App)
+  store,
+  render: h => h(App),
 })

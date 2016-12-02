@@ -1,48 +1,70 @@
+<style>
+  html, body {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  html {
+    box-sizing: border-box;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .control {
+    width: 500px;
+    max-width: 100%;
+  }
+
+  .input.is-huge {
+    height: 40px;
+  }
+</style>
+
 <template>
-  <div id="app">
-    <img class="logo" src="./assets/logo.png">
-    <hello></hello>
-  </div>
+  <main class="container is-fluid">
+    <div class="control">
+      {{ colorName }}
+      <input
+      v-model="color"
+      class="input is-large is-huge"
+      type="text"
+      placeholder="Your Color (ex.: #FFF)">
+    </div>
+  </main>
 </template>
 
 <script>
-import { Hello } from 'components'
+  import colorNames from './data/colors'
+  import _ from 'lodash'
 
-export default {
-  components: {
-    Hello
+  export default {
+
+    data: () => ({
+      color: '',
+    }),
+
+    computed: {
+      colorName () {
+        let color = this.color.replace('#', '')
+        if (color.length === 3) {
+          color = color + color
+        }
+        return colorNames[color]
+      },
+    },
+
   }
-}
 </script>
 
-<style>
-html {
-  height: 100%;
-}
 
-body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-#app {
-  color: #2c3e50;
-  margin-top: -100px;
-  max-width: 600px;
-  font-family: Source Sans Pro, Helvetica, sans-serif;
-  text-align: center;
-}
-
-#app a {
-  color: #42b983;
-  text-decoration: none;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-}
-
-</style>
