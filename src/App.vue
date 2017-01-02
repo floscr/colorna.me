@@ -12,26 +12,72 @@
     // Default background color
     background-color: $grey-10;
   }
+
+
+  .color__name {
+  }
+
+  .color__input {
+    padding: 0.6em 0.55em;
+    min-width: 500px;
+
+    font-size: 1.6em;
+    font-family: 'Menlo', monospace;
+    font-weight: 100;
+
+    border: 1px solid $grey-50;
+    border-radius: 5px;
+
+    &__container {
+      position: relative;
+    }
+
+    &__wheel {
+      $radius: 2.2em;
+      height: $radius;
+      width: $radius;
+
+      position: absolute;
+      right: 0.8em;
+      top: 50%;
+      transform:  translateY(-50%);
+
+      background-color: white;
+      border: 1px solid $grey-50;
+      border-radius: 100%;
+    }
+
+  }
+
 </style>
 
 <template>
-  <div class="container" :style="{ backgroundColor: color }">
-    <div class="control">{{ colorName }}</div>
+  <div class="container">
 
-    <!-- <div class="control"> -->
-    <!--   <chrome @change&#45;color="onChangeColor" v&#45;model="colorPickerFallbackColor"></chrome> -->
-    <!-- </div> -->
+    <main class="app">
 
-    <input
-    v-model="color"
-    class="input is-large control"
-    type="text"
-    placeholder="Your Color (ex.: #FFF)">
+      <div class="color__name">{{ colorName }}</div>
 
-    <div class="control is-grouped">
-      <button @click="lighten" class="button control">Lighten</button>
-      <button @click="darken" class="button control">Darken</button>
-    </div>
+      <!-- <div class="control"> -->
+        <!--   <chrome @change&#45;color="onChangeColor" v&#45;model="colorPickerFallbackColor"></chrome> -->
+        <!-- </div> -->
+
+      <div class="color__input__container">
+        </div>
+        <input
+        v-model="color"
+        class="color__input"
+        type="text"
+        placeholder="Your Color (ex.: #FFF)">
+      </div>
+
+      <!-- <div class="control is&#45;grouped"> -->
+        <!--   <button @click="lighten" class="button control">Lighten</button> -->
+        <!--   <button @click="darken" class="button control">Darken</button> -->
+        <!-- </div> -->
+
+    </main>
+
   </div>
 </template>
 
@@ -48,7 +94,8 @@
     },
 
     data: () => ({
-      color: undefined,
+      // color: undefined,
+      color: '#A7C265',
       amount: 10,
     }),
 

@@ -1,3 +1,6 @@
+
+@import './variables.scss';
+
 html, body {
   height: 100%;
   width: 100%;
@@ -5,12 +8,23 @@ html, body {
   margin: 0;
 }
 
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+$font-family: 'BlinkMacSystemFont', -apple-system, BlinkMacSystemFont, sans-serif;
+
 html {
-  box-sizing: border-box;
+  font-family: $font-family;
 }
 
-*, *:before, *:after {
-  box-sizing: inherit;
+$placeholder-color: desaturate(darken($grey-50, 8%), 8%);
+::-webkit-input-placeholder { font-family: $font-family; color: $placeholder-color }
+::-moz-placeholder { font-family: $font-family; color: $placeholder-color }
+:-ms-input-placeholder { font-family: $font-family; color: $placeholder-color }
+:-moz-placeholder { font-family: $font-family; color: $placeholder-color }
+
+input {
+  display: block;
+  appearance: none;
+  outline: none;
 }
-
-
