@@ -13,6 +13,7 @@
 .input {
   padding: 0.6em 0.55em;
   min-width: 500px;
+  overflow: hidden;
 
   font-size: 1.6em;
   font-family: 'Menlo', monospace;
@@ -34,6 +35,9 @@
 </template>
 
 <script>
+
+import { saveSelection, restoreSelection } from './cursorUtil.js'
+
 export default {
 
   data: () => ({
@@ -56,10 +60,15 @@ export default {
     changeValue (event) {
       let text = event.target.innerText
 
-      if (text[0] === '#') {
-        text = text.substring(1);
-        event.target.innerHTML = '<span color="grey">#</span>${text}'
-      }
+      const savedSelection = saveSelection(this.inputEl)
+
+      // Remove all html tags
+      this.inputEl.innerHTML = this.inputEl.innerHTML.replace(/(<([^>]+)>)/ig, '')
+
+      // Add all html tags again
+      this.inputEl.innerHTML = this.inputEl.innerHTML.replace(/^#/ig, '<span style="color: red">#</span>')
+
+      restoreSelection(this.inputEl, savedSelection)
 
       this.value = text
     },
