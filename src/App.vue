@@ -14,9 +14,6 @@
   }
 
 
-  .color__name {
-  }
-
   .color__input {
     padding: 0.6em 0.55em;
     min-width: 500px;
@@ -58,17 +55,7 @@
 
       <div class="color__name">{{ colorName }}</div>
 
-      <!-- <div class="control"> -->
-        <!--   <chrome @change&#45;color="onChangeColor" v&#45;model="colorPickerFallbackColor"></chrome> -->
-        <!-- </div> -->
-
-      <div class="virtual-input__container">
-        <input
-        v-model="color"
-        class="color__input"
-        type="text"
-        placeholder="Your Color (ex.: #FFF)">
-      </div>
+      <virtual-input></virtual-input>
 
       <!-- <div class="control is&#45;grouped"> -->
         <!--   <button @click="lighten" class="button control">Lighten</button> -->
@@ -84,6 +71,7 @@
   import colorLib from './components/Color/colorLib'
   import lightenDarkenColorLib from './components/Color/lightenDarkenColorLib'
 
+  import VirtualInput from './components/VirtualInput.vue'
   import { Chrome } from 'vue-color'
 
   export default {
@@ -131,6 +119,7 @@
     },
 
     components: {
+      VirtualInput,
       Chrome,
     },
 
