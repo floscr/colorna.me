@@ -13,13 +13,10 @@
 .input {
   padding: 0.6em 0.55em;
   min-width: 500px;
-  overflow: hidden;
 
   font-size: 1.6em;
   font-family: 'Menlo', monospace;
   font-weight: 100;
-
-  height: 30px;
 
 
   outline: none;
@@ -46,6 +43,10 @@ export default {
 
   props: {
     placeholder: String,
+    highlightColor: {
+      type: String,
+      default: '#CDDAE2',
+    },
   },
 
   mounted () {
@@ -60,14 +61,37 @@ export default {
     changeValue (event) {
       let text = event.target.innerText
 
+      // Save the current cursor position
       const savedSelection = saveSelection(this.inputEl)
 
-      // Remove all html tags
-      this.inputEl.innerHTML = this.inputEl.innerHTML.replace(/(<([^>]+)>)/ig, '')
+      let html = this.inputEl.innerHTML
 
-      // Add all html tags again
-      this.inputEl.innerHTML = this.inputEl.innerHTML.replace(/^#/ig, '<span style="color: red">#</span>')
+      // Remove all previous html tags
+      html = html.replace(/(<([^>]+)>)/ig, '')
 
+      // Wrap the # symbol at the beginning of the text
+      html = html.replace(
+        /^#/ig,
+        `<span style="color: ${this.highlightColor}">#</span>`
+      )
+
+      // Highlight rgb with optional a
+      html = html.replace(
+        /^(rgb)(a)?/ig,
+        `<span style="color: ${this.highlightColor}">$1$2</span>`
+      )
+
+      // Highlight brackets and colons
+      html = html.replace(
+        /([,()])/ig,
+        `<span style="color: ${this.highlightColor}">$1</span>`
+      )
+
+      this.inputEl.innerHTML = html
+
+      // Restore the cursor position
+      // contenteditable resets the cursor position by default
+      // when the content gets changed programaticaly
       restoreSelection(this.inputEl, savedSelection)
 
       this.value = text
