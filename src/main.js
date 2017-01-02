@@ -4,8 +4,6 @@ import Vue from 'vue'
 import store from 'src/store'
 import App from 'src/App'
 
-import 'bulma/css/bulma.css'
-
 new Vue({
   el: '#app',
   store,
