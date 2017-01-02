@@ -1,69 +1,37 @@
-<style>
-  html, body {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-  }
+<style lang=scss>
+  @import './styles/base.scss';
+  @import './styles/variables.scss';
 
-  html {
-    box-sizing: border-box;
-  }
-
-  *, *:before, *:after {
-    box-sizing: inherit;
-  }
-
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-
-  .control {
-    width: 500px;
-    max-width: 100%;
-  }
-
-  .input.is-huge {
-    height: 40px;
-  }
-
-  main {
-    display: block;
-    padding: 2em;
-    background-color: white;
-  }
-  .wrap {
+  .container {
     width: 100%;
     height: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-  }
+    justify-content: center;
 
+    // Default background color
+    background-color: $grey-10;
+  }
 </style>
 
 <template>
-  <div class="wrap" :style="{ backgroundColor: color }">
-    <main>
-      <div class="control">
-        <div class="control">{{ colorName }}</div>
-        <div class="control">
-          <chrome @change-color="onChangeColor" v-model="color"></chrome>
-        </div>
-        <input
-        v-model="color"
-        class="input is-large control"
-        type="text"
-        placeholder="Your Color (ex.: #FFF)">
-        <div class="control is-grouped">
-          <button @click="lighten" class="button control">Lighten</button>
-          <button @click="darken" class="button control">Darken</button>
-        </div>
-      </div>
-    </main>
+  <div class="container" :style="{ backgroundColor: color }">
+    <div class="control">{{ colorName }}</div>
+
+    <!-- <div class="control"> -->
+    <!--   <chrome @change&#45;color="onChangeColor" v&#45;model="colorPickerFallbackColor"></chrome> -->
+    <!-- </div> -->
+
+    <input
+    v-model="colorPickerColorOrInitialColorFallback"
+    class="input is-large control"
+    type="text"
+    placeholder="Your Color (ex.: #FFF)">
+
+    <div class="control is-grouped">
+      <button @click="lighten" class="button control">Lighten</button>
+      <button @click="darken" class="button control">Darken</button>
+    </div>
   </div>
 </template>
 
@@ -80,19 +48,23 @@
     },
 
     data: () => ({
-      color: '',
+      color: undefined,
       amount: 10,
     }),
 
     computed: {
-      safeColor () {
 
+      colorPickerFallbackColor () {
+        return this.color || '#FFF'
       },
 
       colorName () {
-        if (this.color !== '' && this.color.length >= 3) {
+        if (!this.color) return
+
+        if (this.color.length >= 3) {
           return colorLib.name(this.color)[1]
         }
+
       },
     },
 
