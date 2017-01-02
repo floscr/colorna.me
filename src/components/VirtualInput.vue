@@ -43,6 +43,10 @@ export default {
 
   props: {
     placeholder: String,
+    autofocus: {
+      type: Boolean,
+      default: true,
+    },
     highlightColor: {
       type: String,
       default: '#CDDAE2',
@@ -54,6 +58,10 @@ export default {
     this.inputEl = Array.from(this.$el.children)[0]
 
     this.addEventListeners()
+
+    if (this.autofocus) {
+      this.inputEl.focus()
+    }
   },
 
   methods: {
