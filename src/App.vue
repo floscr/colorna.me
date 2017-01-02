@@ -23,7 +23,7 @@
     <!-- </div> -->
 
     <input
-    v-model="colorPickerColorOrInitialColorFallback"
+    v-model="color"
     class="input is-large control"
     type="text"
     placeholder="Your Color (ex.: #FFF)">
