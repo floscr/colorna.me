@@ -54,7 +54,14 @@ export default {
   methods: {
 
     changeValue (event) {
-      this.value = event.target.innerText
+      let text = event.target.innerText
+
+      if (text[0] === '#') {
+        text = text.substring(1);
+        event.target.innerHTML = '<span color="grey">#</span>${text}'
+      }
+
+      this.value = text
     },
 
     addEventListeners () {
