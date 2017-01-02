@@ -20,13 +20,23 @@
 
 
   outline: none;
+
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color: #CDDAE2;
+  display: block; /* For Firefox */
 }
 
 </style>
 
 <template>
   <div class="virtual-input">
-    <div class="input" contenteditable="true">
+    <div
+      class="input"
+      :placeholder="placeholder"
+      contenteditable="true">
     </div>
   </div>
 </template>
@@ -42,11 +52,19 @@ export default {
   }),
 
   props: {
-    placeholder: String,
+    // Placeholder when the input is empty
+    placeholder: {
+      type: String,
+      default: 'Test placeholder',
+    },
+
+    // If the field should be focused on mount
     autofocus: {
       type: Boolean,
       default: true,
     },
+
+    // Highlight color of special characters like #
     highlightColor: {
       type: String,
       default: '#CDDAE2',
