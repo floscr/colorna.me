@@ -62,8 +62,7 @@
         <!--   <chrome @change&#45;color="onChangeColor" v&#45;model="colorPickerFallbackColor"></chrome> -->
         <!-- </div> -->
 
-      <div class="color__input__container">
-        </div>
+      <div class="virtual-input__container">
         <input
         v-model="color"
         class="color__input"
