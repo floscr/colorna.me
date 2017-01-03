@@ -47,6 +47,8 @@ import { saveSelection, restoreSelection } from './cursorUtil.js'
 
 export default {
   props: {
+    value: undefined,
+
     // Placeholder when the input is empty
     placeholder: {
       type: String,
@@ -68,16 +70,13 @@ export default {
     },
   },
 
-  data: () => ({
-    value: '',
-  }),
-
   mounted () {
-    // Get the input element from the children
+    // Get the input element from the components children
     this.inputEl = Array.from(this.$el.children)[0]
 
     this.addEventListeners()
 
+    // Autofocus when the prop is set to true
     if (this.autofocus) {
       this.inputEl.focus()
     }
