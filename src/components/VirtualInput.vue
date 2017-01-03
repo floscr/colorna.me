@@ -54,7 +54,7 @@ export default {
     // If the field should be focused on mount
     autofocus: {
       type: Boolean,
-      default: true,
+      default: false,
     },
 
     colors: {
