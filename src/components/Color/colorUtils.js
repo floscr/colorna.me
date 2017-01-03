@@ -6,7 +6,7 @@
  * @param {string} color Hex color with #
  * @returns {Int} Luma value 0 - 100 where:
  *                0 = Darkest
- *                100 = Brightest
+ *                255 = Brightest
  */
 export function lumaFromColor (color) {
   const c = color.substring(1) // strip #
