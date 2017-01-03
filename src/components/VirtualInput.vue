@@ -18,6 +18,17 @@
   outline: none;
 }
 
+.info {
+  position: absolute;
+  bottom: 0.6em;
+  right: 0.5em;
+
+  font-family: $font-sans-serif;
+  opacity: 0.35;
+  font-size: 0.7em;
+  font-weight: 500;
+}
+
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
   color: #c6cbce;
@@ -35,6 +46,7 @@
       v-html="innerHTML"
       contenteditable="true">
     </div>
+    <div class="info" v-if="isValidColor">Press enter to Copy name</div>
   </div>
 </template>
 
@@ -50,6 +62,11 @@ export default {
     placeholder: {
       type: String,
       default: 'Test placeholder',
+    },
+
+    isValidColor: {
+      type: Boolean,
+      default: false,
     },
 
     // If the field should be focused on mount

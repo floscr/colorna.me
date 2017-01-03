@@ -113,6 +113,7 @@
         <virtual-input
           placeholder="Paste your color"
           autofocus
+          :is-valid-color="validHexColor"
           v-model="color"
           >
         </virtual-input>
