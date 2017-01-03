@@ -110,10 +110,11 @@
   import colorLib from './components/Color/colorLib'
   import { lightenDarkenColor, lumaFromColor } from './components/Color/colorUtils'
 
+  import tinycolor from 'tinycolor2'
+
   import { isHex } from './components/Color/colorValidation.js'
 
   import VirtualInput from './components/VirtualInput.vue'
-  import { Chrome } from 'vue-color'
 
   export default {
 
@@ -122,12 +123,28 @@
     },
 
     data: () => ({
-      colorDisplayMode: 'name',
       color: '#A7C265',
-      amount: 10,
     }),
 
     computed: {
+
+      /**
+       * Return the name for a color string
+       */
+      colorName () {
+        if (!this.validHexColor) return
+        return colorLib.name(this.validHexColor)[1]
+      },
+
+      /**
+       * Convert string to a tinyColor object
+       * https://github.com/bgrins/TinyColor
+       *
+       * @return {obj} tinycolor object
+       */
+      tinycolor () {
+        return tinycolor(this.color)
+      },
 
       /**
        * Return a hex color string if the input color is either a
@@ -138,8 +155,8 @@
        * @return {string} Converted Hex Color
        */
       validHexColor () {
-        if (isHex(this.color)) {
-          return this.color
+        if (this.tinycolor.isValid()) {
+          return this.tinycolor.toHexString()
         }
       },
 
@@ -151,17 +168,10 @@
        */
       colorDisplayNameTextColor () {
         if (this.validHexColor) {
-          const luma = lumaFromColor(this.validHexColor)
-          console.log(luma)
-          return luma > 120 ? 'black' : 'white'
+          return this.tinycolor.isLight() ? 'black' : 'white'
         }
       },
 
-      colorName () {
-        if (!this.validHexColor) return
-
-        return colorLib.name(this.validHexColor)[1]
-      },
     },
 
     methods: {
@@ -172,11 +182,6 @@
 
       lighten () {
         this.color = lightenDarkenColor(this.color, 10)
-      },
-
-      // onChange method called when the event 'change-color' is emitted
-      onChangeColor (val) {
-        this.color = val.hex
       },
 
       /**
@@ -193,7 +198,6 @@
 
     components: {
       VirtualInput,
-      Chrome,
     },
 
   }
