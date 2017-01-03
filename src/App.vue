@@ -134,8 +134,6 @@
 
   import tinycolor from 'tinycolor2'
 
-  import { isHex } from './components/Color/colorValidation.js'
-
   import VirtualInput from './components/VirtualInput.vue'
 
   export default {
