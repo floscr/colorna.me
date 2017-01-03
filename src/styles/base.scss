@@ -23,8 +23,14 @@ $placeholder-color: desaturate(darken($grey-50, 8%), 8%);
 :-ms-input-placeholder { font-family: $font-family; color: $placeholder-color }
 :-moz-placeholder { font-family: $font-family; color: $placeholder-color }
 
-input {
+input, button {
   display: block;
   appearance: none;
   outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+img {
+  display: block;
 }

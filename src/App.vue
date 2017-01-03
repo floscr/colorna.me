@@ -45,6 +45,18 @@
     }
   }
 
+  .color-display__btn {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    bottom: 0.8em;
+    right: 0.8em;
+    border-radius: 100%;
+    overflow: hidden;
+    border: 1px solid rgba(black, 0.1);
+    box-shadow: 0 1px 2px 1px rgba(black, 0.1);
+  }
+
 </style>
 
 <template>
@@ -53,13 +65,21 @@
     <main class="app">
 
       <div class="color-display" :style="{ backgroundColor: validHexColor }">
-        <div class="color-display__name" v-if="validHexColor">{{ colorName }}</div>
-        <div class="color-display__name--is-emtpy" v-else-if="color === ''">
-          Please insert a color
+
+        <div class="color-display__name__container">
+          <div class="color-display__name" v-if="validHexColor">{{ colorName }}</div>
+          <div class="color-display__name--is-emtpy" v-else-if="color === ''">
+            Please insert a color
+          </div>
+          <div class="color-display__name--is-invalid" v-else>
+            Not a valid color: '{{ color }}'
+          </div>
         </div>
-        <div class="color-display__name--is-invalid" v-else>
-          Not a valid color: '{{ color }}'
-        </div>
+
+        <button class="color-display__btn">
+          <img src="./assets/colorwheel@1x.jpg" srcset="./assets/colorwheel@2x.jpg 2x" alt="Colorinspector">
+        </button>
+
       </div>
 
       <div class="virtual-input__wrapper">
