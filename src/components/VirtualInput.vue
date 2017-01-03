@@ -20,7 +20,6 @@
 
 
   outline: none;
-
 }
 
 [contenteditable=true]:empty:before{
@@ -79,6 +78,11 @@ export default {
     // Get the input element from the components children
     this.inputEl = Array.from(this.$el.children)[0]
 
+    // Update the innerHTML to passed value when its not empty
+    if (this.value && this.value !== '') {
+      this.innerHTML = this.highlightText(this.value)
+    }
+
     this.addEventListeners()
 
     // Autofocus when the prop is set to true
@@ -119,7 +123,10 @@ export default {
      */
     highlightText (text) {
       // Remove all previous html tags
-      text = text.replace(/(<([^>]+)>)/ig, '')
+      // text = text.replace(/(<([^>]+)>)/ig, '')
+
+      // Strip newline characters in case they get inserted via clipboard paste
+      text = text.replace(/(\r\n|\n|\r)/gm, '');
 
       // Wrap the # symbol at the beginning of the text
       text = text.replace(
@@ -146,6 +153,10 @@ export default {
      * Change and highlight the innerHTML
      */
     changeValue (event) {
+
+      // Disable enter
+      if (event.which === 13) event.preventDefault()
+
       this.textValue = event.target.innerText
 
       let text = event.target.innerText
