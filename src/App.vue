@@ -79,6 +79,8 @@
   import colorLib from './components/Color/colorLib'
   import lightenDarkenColorLib from './components/Color/lightenDarkenColorLib'
 
+  import { isHex } from './components/Color/colorValidation.js'
+
   import VirtualInput from './components/VirtualInput.vue'
   import { Chrome } from 'vue-color'
 
@@ -96,17 +98,27 @@
 
     computed: {
 
-      colorPickerFallbackColor () {
-        return this.color || '#FFF'
+      /**
+       * Return a hex color string if the input color is either a
+       * - Valid hex number
+       *
+       * Convert valid non hex color formats to hex
+       *
+       * @return {string} Converted Hex Color
+       */
+      validHexColor () {
+        if (isHex(this.color)) {
+          return this.color
+        }
       },
 
       colorName () {
-        if (!this.color) return
+        if (!this.validHexColor) return
 
-        if (this.color.length >= 3) {
-          return colorLib.name(this.color)[1]
-        }
+        console.log(this.color)
+        console.log(colorLib.name(this.validHexColor)[1])
 
+        return colorLib.name(this.validHexColor)[1]
       },
     },
 
