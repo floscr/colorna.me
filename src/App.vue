@@ -76,7 +76,8 @@
           </div>
         </div>
 
-        <button class="color-display__btn">
+        <button class="color-display__btn" @click="launchNativeColorPicker">
+          <input type="color" style="display: none" v-model="color">
           <img src="./assets/colorwheel@1x.jpg" srcset="./assets/colorwheel@2x.jpg 2x" alt="Colorinspector">
         </button>
 
@@ -116,6 +117,7 @@
     },
 
     data: () => ({
+      colorDisplayMode: 'name',
       color: '#A7C265',
       amount: 10,
     }),
@@ -156,6 +158,16 @@
       // onChange method called when the event 'change-color' is emitted
       onChangeColor (val) {
         this.color = val.hex
+      },
+
+      /**
+       * Click the hidden color input to trigger the native color picker
+       */
+      launchNativeColorPicker () {
+        if (!this.colorInput) {
+          this.colorInput = this.$el.querySelector('input[type=color]')
+        }
+        this.colorInput.click()
       },
 
     },
