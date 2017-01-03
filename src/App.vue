@@ -103,7 +103,7 @@
 
 <script>
   import colorLib from './components/Color/colorLib'
-  import lightenDarkenColorLib from './components/Color/lightenDarkenColorLib'
+  import { lightenDarkenColor, lumaFromColor } from './components/Color/colorUtils'
 
   import { isHex } from './components/Color/colorValidation.js'
 
@@ -148,11 +148,11 @@
     methods: {
 
       darken () {
-        this.color = lightenDarkenColorLib(this.color, -10)
+        this.color = lightenDarkenColor(this.color, -10)
       },
 
       lighten () {
-        this.color = lightenDarkenColorLib(this.color, 10)
+        this.color = lightenDarkenColor(this.color, 10)
       },
 
       // onChange method called when the event 'change-color' is emitted
