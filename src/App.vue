@@ -55,6 +55,49 @@
     }
   }
 
+  .color-display__name__container--is-valid {
+    cursor: pointer;
+  }
+
+  .color-display__name__container--is-valid:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    background-image: radial-gradient(rgba(black, 0.0) 40%, rgba(black, 0.5) 150%);
+  }
+
+  .color-display__name__container--is-valid:after {
+    content: 'Click to copy name to clipboard!';
+    position: absolute;
+    bottom: 0.8em;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    font-size: 0.8em;
+    color: white;
+
+    opacity: 0;
+    transform: translateY(2em);
+    transition: all 0.28s ease-in-out;
+  }
+
+  .color-display__name__container--is-valid:hover:before, {
+    opacity: 1;
+  }
+
+  .color-display__name__container--is-valid:hover:after {
+    opacity: 1;
+    transform: none;
+  }
+
   .color-display__message {
     text-align: center;
     font-weight: 100;
@@ -105,7 +148,10 @@
 
     <main class="app">
 
-      <div class="color-display" :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
+      <div
+        class="color-display"
+        @click="copyNameToClipboard"
+        :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
 
         <transition name="notification" mode="out-in">
           <div class="color-display__notification" v-if="colorWasCopiedToClipBoard">
@@ -113,7 +159,7 @@
           </div>
         </transition>
 
-        <div class="color-display__name__container">
+        <div class="color-display__name__container" :class="validHexColor ? 'color-display__name__container--is-valid' : ''">
           <div
             class="color-display__name"
             :style="{ color: colorDisplayNameTextColor }"
