@@ -66,7 +66,6 @@
         <virtual-input
           placeholder="Paste your color"
           v-model="color"
-          v-on:input="updateColorFromInput"
           >
         </virtual-input>
         <!-- <div class="control is&#45;grouped"> -->
@@ -97,7 +96,6 @@
     },
 
     data: () => ({
-      // color: undefined,
       color: '#A7C265',
       amount: 10,
     }),
@@ -121,18 +119,11 @@
       colorName () {
         if (!this.validHexColor) return
 
-        console.log(this.color)
-        console.log(colorLib.name(this.validHexColor)[1])
-
         return colorLib.name(this.validHexColor)[1]
       },
     },
 
     methods: {
-
-      updateColorFromInput (color) {
-        console.log(color)
-      },
 
       darken () {
         this.color = lightenDarkenColorLib(this.color, -10)
