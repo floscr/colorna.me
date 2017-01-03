@@ -9,15 +9,13 @@
     align-items: center;
     justify-content: center;
 
-    background-color: $grey-10;
+    background-color: #EFF3F3;
   }
 
   .app {
     max-width: 400px;
     margin: 1em;
     width: 100%;
-
-    /* background-color: white; */
 
     border-radius: 5px;
     box-shadow: 0 3px 10px 2px rgba(desaturate(darken($color-border, 20%), 40%), 0.2);
@@ -47,6 +45,8 @@
     border-top-right-radius: 5px;
     box-shadow: inset 0 0 0 1px rgba(black, 0.15);
     overflow: hidden;
+
+    /* transition: background-color 0.08s; */
 
     &__name {
       font-family: 'Menlo', monospace;
