@@ -143,10 +143,15 @@ export default {
       // Highlight and adapt the current inner html text
       this.innerHTML = this.highlightText(text)
 
-      this.$nextTick(function () {
-        // Restore the cursor position
-        // contenteditable resets the cursor position by default
-        // when the content gets changed programaticaly
+      /**
+       * Restore the cursor position.
+       *
+       * Contenteditable would reset the cursor position
+       * when the innerHTML gets changed programaticaly.
+       *
+       * Call this on the next VUE tick, after the content has changed.
+       */
+      this.$nextTick(() => {
         restoreSelection(this.inputEl, savedSelection)
       })
 
