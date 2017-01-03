@@ -46,11 +46,6 @@
 import { saveSelection, restoreSelection } from './cursorUtil.js'
 
 export default {
-
-  data: () => ({
-    value: '',
-  }),
-
   props: {
     // Placeholder when the input is empty
     placeholder: {
@@ -64,12 +59,18 @@ export default {
       default: true,
     },
 
-    // Highlight color of special characters like #
-    highlightColor: {
-      type: String,
-      default: '#CDDAE2',
+    colors: {
+      type: Object,
+      default: _ => ({
+        placeholder: '#CDDAE2',
+        highlight: '#CDDAE2',
+      }),
     },
   },
+
+  data: () => ({
+    value: '',
+  }),
 
   mounted () {
     // Get the input element from the children
@@ -98,19 +99,19 @@ export default {
       // Wrap the # symbol at the beginning of the text
       html = html.replace(
         /^#/ig,
-        `<span style="color: ${this.highlightColor}">#</span>`
+        `<span style="color: ${this.colors.highlight}">#</span>`
       )
 
       // Highlight rgb with optional a
       html = html.replace(
         /^(rgb)(a)?/ig,
-        `<span style="color: ${this.highlightColor}">$1$2</span>`
+        `<span style="color: ${this.colors.highlight}">$1$2</span>`
       )
 
       // Highlight brackets and colons
       html = html.replace(
         /([,()])/ig,
-        `<span style="color: ${this.highlightColor}">$1</span>`
+        `<span style="color: ${this.colors.highlight}">$1</span>`
       )
 
       this.inputEl.innerHTML = html

@@ -55,7 +55,9 @@
 
       <div class="color__name">{{ colorName }}</div>
 
-      <virtual-input></virtual-input>
+      <virtual-input
+        placeholder="Paste your color">
+      </virtual-input>
 
       <!-- <div class="control is&#45;grouped"> -->
         <!--   <button @click="lighten" class="button control">Lighten</button> -->
