@@ -48,6 +48,10 @@ var ntc = {
         color = color.toUpperCase();
         if (color.length < 3 || color.length > 7)
             return ["#000000", "Invalid Color: " + color, false];
+
+        // Hardocoded Rebecca purple name ;(
+        if (color === '#663399') return ['#' + color, 'Rebecca Purple']
+
         if (color.length % 3 == 0)
             color = "#" + color;
         if (color.length == 4)
