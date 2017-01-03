@@ -20,6 +20,8 @@
     border-radius: 5px;
     box-shadow: 0 3px 10px 2px rgba(desaturate(darken($color-border, 20%), 40%), 0.2);
 
+    background-color: white;
+
     > * + * {
       border-top: inherit;
     }
