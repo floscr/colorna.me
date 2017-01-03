@@ -9,10 +9,41 @@
     align-items: center;
     justify-content: center;
 
-    // Default background color
     background-color: $grey-10;
   }
 
+  .app {
+    max-width: 400px;
+    margin: 1em;
+    width: 100%;
+
+    background-color: white;
+
+    border-radius: 5px;
+    border: 1px solid $color-border;
+
+    > * + * {
+      border-top: inherit;
+    }
+  }
+
+  .virtual-input__wrapper {
+    position: relative;
+    border-color: inherit
+  }
+
+
+  .color-display {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+
+    &__name {
+      font-family: 'Menlo', monospace;
+    }
+  }
 
 </style>
 
@@ -21,20 +52,23 @@
 
     <main class="app">
 
-      <div class="color__name">{{ colorName }}</div>
+      <div class="color-display">
+        <div class="color-display__name">{{ colorName }}</div>
+      </div>
 
-      {{ color }}
-      <virtual-input
-        placeholder="Paste your color"
-        v-model="color"
-        v-on:input="updateColorFromInput"
-        >
-      </virtual-input>
-
-      <!-- <div class="control is&#45;grouped"> -->
+      <div class="virtual-input__wrapper">
+        <virtual-input
+          placeholder="Paste your color"
+          v-model="color"
+          v-on:input="updateColorFromInput"
+          >
+        </virtual-input>
+        <!-- <div class="control is&#45;grouped"> -->
         <!--   <button @click="lighten" class="button control">Lighten</button> -->
         <!--   <button @click="darken" class="button control">Darken</button> -->
         <!-- </div> -->
+      </div>
+
 
     </main>
 

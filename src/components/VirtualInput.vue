@@ -4,20 +4,16 @@
 
 .virtual-input {
   font-size: 1em;
-
   overflow: hidden;
-  border: 1px solid $grey-50;
-  border-radius: 5px;
 }
 
 .input {
+  width: 100%;
   padding: 0.6em 0.55em;
-  min-width: 500px;
 
   font-size: 1.6em;
   font-family: 'Menlo', monospace;
   font-weight: 100;
-
 
   outline: none;
 }
