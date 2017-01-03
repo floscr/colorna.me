@@ -77,7 +77,7 @@
         </div>
 
         <button class="color-display__btn" @click="launchNativeColorPicker">
-          <input type="color" style="display: none" v-model="color">
+          <input class="virtually-hidden" type="color" v-model="color">
           <img src="./assets/colorwheel@1x.jpg" srcset="./assets/colorwheel@2x.jpg 2x" alt="Colorinspector">
         </button>
 
