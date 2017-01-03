@@ -52,8 +52,14 @@
 
     <main class="app">
 
-      <div class="color-display">
-        <div class="color-display__name">{{ colorName }}</div>
+      <div class="color-display" :style="{ backgroundColor: validHexColor }">
+        <div class="color-display__name" v-if="validHexColor">{{ colorName }}</div>
+        <div class="color-display__name--is-emtpy" v-else-if="color === ''">
+          Please insert a color
+        </div>
+        <div class="color-display__name--is-invalid" v-else>
+          Not a valid color: '{{ color }}'
+        </div>
       </div>
 
       <div class="virtual-input__wrapper">
