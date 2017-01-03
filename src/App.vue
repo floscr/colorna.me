@@ -67,7 +67,12 @@
       <div class="color-display" :style="{ backgroundColor: validHexColor }">
 
         <div class="color-display__name__container">
-          <div class="color-display__name" v-if="validHexColor">{{ colorName }}</div>
+          <div
+            class="color-display__name"
+            :style="{ color: colorDisplayNameTextColor }"
+            v-if="validHexColor">
+            {{ colorName }}
+          </div>
           <div class="color-display__name--is-emtpy" v-else-if="color === ''">
             Please insert a color
           </div>
@@ -135,6 +140,20 @@
       validHexColor () {
         if (isHex(this.color)) {
           return this.color
+        }
+      },
+
+      /**
+       * Set the color name color to either white or black
+       * Dependant on the brightness of the current color
+       *
+       * @return {string} css color value of either 'white' or 'black'
+       */
+      colorDisplayNameTextColor () {
+        if (this.validHexColor) {
+          const luma = lumaFromColor(this.validHexColor)
+          console.log(luma)
+          return luma > 120 ? 'black' : 'white'
         }
       },
 
