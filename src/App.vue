@@ -14,38 +14,6 @@
   }
 
 
-  .color__input {
-    padding: 0.6em 0.55em;
-    min-width: 500px;
-
-    font-size: 1.6em;
-    font-family: 'Menlo', monospace;
-    font-weight: 100;
-
-    border: 1px solid $grey-50;
-    border-radius: 5px;
-
-    &__container {
-      position: relative;
-    }
-
-    &__wheel {
-      $radius: 2.2em;
-      height: $radius;
-      width: $radius;
-
-      position: absolute;
-      right: 0.8em;
-      top: 50%;
-      transform:  translateY(-50%);
-
-      background-color: white;
-      border: 1px solid $grey-50;
-      border-radius: 100%;
-    }
-
-  }
-
 </style>
 
 <template>
@@ -62,8 +30,6 @@
         v-on:input="updateColorFromInput"
         >
       </virtual-input>
-
-      <button @click="color = '#000'">Set color to black</button>
 
       <!-- <div class="control is&#45;grouped"> -->
         <!--   <button @click="lighten" class="button control">Lighten</button> -->
