@@ -113,7 +113,8 @@
         <virtual-input
           placeholder="Paste your color"
           autofocus
-          :is-valid-color="validHexColor"
+          :is-valid-color="validHexColor ? true : false"
+          @enterpress="copyNameToClipboard"
           v-model="color"
           >
         </virtual-input>
@@ -130,11 +131,15 @@
 </template>
 
 <script>
-  import colorLib from './components/Color/colorLib'
-  import { lightenDarkenColor, lumaFromColor } from './components/Color/colorUtils'
-
+  // Packages
   import tinycolor from 'tinycolor2'
+  import copyToClipboard from 'copy-to-clipboard'
 
+  // Utilities
+  import colorLib from './components/Color/colorLib'
+  import { lightenDarkenColor } from './components/Color/colorUtils'
+
+  // Components
   import VirtualInput from './components/VirtualInput.vue'
 
   export default {
@@ -198,12 +203,13 @@
 
     methods: {
 
-      darken () {
-        this.color = lightenDarkenColor(this.color, -10)
-      },
-
-      lighten () {
-        this.color = lightenDarkenColor(this.color, 10)
+      /**
+       * Copy the current Color name to the clipboard
+       * https://www.npmjs.com/package/clipboard
+       */
+      copyNameToClipboard () {
+        if (!this.colorName) return
+        copyToClipboard(this.colorName)
       },
 
       /**
@@ -214,6 +220,14 @@
           this.colorInput = this.$el.querySelector('input[type=color]')
         }
         this.colorInput.click()
+      },
+
+      darken () {
+        this.color = lightenDarkenColor(this.color, -10)
+      },
+
+      lighten () {
+        this.color = lightenDarkenColor(this.color, 10)
       },
 
     },
