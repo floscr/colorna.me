@@ -119,9 +119,13 @@
     position: absolute;
     bottom: 0.8em;
     right: 0.8em;
-    border-radius: 100%;
+
+    cursor: pointer;
     overflow: hidden;
+
+    border-radius: 100%;
     border: 1px solid rgba(black, 0.1);
+
     box-shadow: 0 1px 2px 1px rgba(black, 0.1);
   }
 
