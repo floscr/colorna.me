@@ -18,22 +18,33 @@
   font-family: 'Menlo', monospace;
   font-weight: 100;
 
-  height: 30px;
-
 
   outline: none;
+
+}
+
+[contenteditable=true]:empty:before{
+  content: attr(placeholder);
+  color: #CDDAE2;
+  display: block; /* For Firefox */
 }
 
 </style>
 
 <template>
   <div class="virtual-input">
-    <div class="input" contenteditable="true">
+    <div
+      class="input"
+      :placeholder="placeholder"
+      contenteditable="true">
     </div>
   </div>
 </template>
 
 <script>
+
+import { saveSelection, restoreSelection } from './cursorUtil.js'
+
 export default {
 
   data: () => ({
@@ -41,7 +52,23 @@ export default {
   }),
 
   props: {
-    placeholder: String,
+    // Placeholder when the input is empty
+    placeholder: {
+      type: String,
+      default: 'Test placeholder',
+    },
+
+    // If the field should be focused on mount
+    autofocus: {
+      type: Boolean,
+      default: true,
+    },
+
+    // Highlight color of special characters like #
+    highlightColor: {
+      type: String,
+      default: '#CDDAE2',
+    },
   },
 
   mounted () {
@@ -49,12 +76,51 @@ export default {
     this.inputEl = Array.from(this.$el.children)[0]
 
     this.addEventListeners()
+
+    if (this.autofocus) {
+      this.inputEl.focus()
+    }
   },
 
   methods: {
 
     changeValue (event) {
-      this.value = event.target.innerText
+      let text = event.target.innerText
+
+      // Save the current cursor position
+      const savedSelection = saveSelection(this.inputEl)
+
+      let html = this.inputEl.innerHTML
+
+      // Remove all previous html tags
+      html = html.replace(/(<([^>]+)>)/ig, '')
+
+      // Wrap the # symbol at the beginning of the text
+      html = html.replace(
+        /^#/ig,
+        `<span style="color: ${this.highlightColor}">#</span>`
+      )
+
+      // Highlight rgb with optional a
+      html = html.replace(
+        /^(rgb)(a)?/ig,
+        `<span style="color: ${this.highlightColor}">$1$2</span>`
+      )
+
+      // Highlight brackets and colons
+      html = html.replace(
+        /([,()])/ig,
+        `<span style="color: ${this.highlightColor}">$1</span>`
+      )
+
+      this.inputEl.innerHTML = html
+
+      // Restore the cursor position
+      // contenteditable resets the cursor position by default
+      // when the content gets changed programaticaly
+      restoreSelection(this.inputEl, savedSelection)
+
+      this.value = text
     },
 
     addEventListeners () {
