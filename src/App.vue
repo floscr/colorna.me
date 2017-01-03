@@ -55,6 +55,16 @@
     }
   }
 
+  .color-display__message {
+    text-align: center;
+    font-weight: 100;
+    color: #666F80;
+    line-height: 1.5;
+    &__hint {
+      opacity: 0.8;
+    }
+  }
+
   .color-display__btn {
     margin: 0;
     padding: 0;
@@ -74,7 +84,7 @@
 
     <main class="app">
 
-      <div class="color-display" :style="{ backgroundColor: validHexColor }">
+      <div class="color-display" :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
 
         <div class="color-display__name__container">
           <div
@@ -83,11 +93,12 @@
             v-if="validHexColor">
             {{ colorName }}
           </div>
-          <div class="color-display__name--is-emtpy" v-else-if="color === ''">
+          <div class="color-display__message color-display__message--is-emtpy" v-else-if="color === ''">
             Please insert a color
           </div>
-          <div class="color-display__name--is-invalid" v-else>
-            Not a valid color: '{{ color }}'
+          <div class="color-display__message color-display__message--is-invalid" v-else>
+            Not a valid color: '{{ color }}'<br>
+            <small class="color-display__message__hint">Allowed formats are: HEX, rgb(a)</small>
           </div>
         </div>
 
@@ -101,6 +112,7 @@
       <div class="virtual-input__wrapper">
         <virtual-input
           placeholder="Paste your color"
+          autofocus
           v-model="color"
           >
         </virtual-input>
@@ -129,7 +141,7 @@
   export default {
 
     mounted () {
-      this.color = '#A7C265'
+      this.color = ''
       colorLib.init()
     },
 
