@@ -36,6 +36,7 @@
     <div
       class="input"
       :placeholder="placeholder"
+      v-html="innerHTML"
       contenteditable="true">
     </div>
   </div>
@@ -70,6 +71,10 @@ export default {
     },
   },
 
+  data: () => ({
+    innerHTML: '',
+  }),
+
   mounted () {
     // Get the input element from the components children
     this.inputEl = Array.from(this.$el.children)[0]
@@ -82,7 +87,21 @@ export default {
     }
   },
 
+  // watch: {
+  //   value (newValue, oldValue) {
+  //     this.inputEl.innerHTML = this.highlightText(newValue)
+  //   },
+  // },
+
+
   methods: {
+
+    /**
+     * Add eventlisteners to to the component
+     */
+    addEventListeners () {
+      this.inputEl.addEventListener('keyup', event => this.changeValue(event))
+    },
 
     /**
      * Highlight a string by wrapping characters in span tags
@@ -122,20 +141,19 @@ export default {
       const savedSelection = saveSelection(this.inputEl)
 
       // Highlight and adapt the current inner html text
-      this.inputEl.innerHTML = this.highlightText(this.inputEl.innerHTML)
+      this.innerHTML = this.highlightText(text)
 
-      // Restore the cursor position
-      // contenteditable resets the cursor position by default
-      // when the content gets changed programaticaly
-      restoreSelection(this.inputEl, savedSelection)
+      this.$nextTick(function () {
+        // Restore the cursor position
+        // contenteditable resets the cursor position by default
+        // when the content gets changed programaticaly
+        restoreSelection(this.inputEl, savedSelection)
+      })
 
       // Emit text value throguh the input event
       this.$emit('input', event.target.innerText)
     },
 
-    addEventListeners () {
-      this.inputEl.addEventListener('input', event => this.changeValue(event))
-    },
 
   },
 
