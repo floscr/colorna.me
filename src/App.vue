@@ -21,6 +21,7 @@
 
     border-radius: 5px;
     border: 1px solid $color-border;
+    box-shadow: 0 3px 10px 2px rgba(desaturate(darken($color-border, 20%), 40%), 0.2);
 
     > * + * {
       border-top: inherit;
@@ -31,7 +32,6 @@
     position: relative;
     border-color: inherit
   }
-
 
   .color-display {
     position: relative;
