@@ -180,7 +180,7 @@
           </div>
           <div class="color-display__message color-display__message--is-invalid" v-else>
             Not a valid color: '{{ color }}'<br>
-            <small class="color-display__message__hint">Allowed formats are: HEX, rgb(a)</small>
+            <small class="color-display__message__hint">Allowed formats: HEX, rgb(a), hsl(a)</small>
           </div>
         </div>
 
