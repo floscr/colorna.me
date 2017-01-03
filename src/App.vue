@@ -77,6 +77,27 @@
     box-shadow: 0 1px 2px 1px rgba(black, 0.1);
   }
 
+  .color-display__notification {
+    position: absolute;
+    left: 0.7em;
+    top: 0.7em;
+    font-size: 0.85rem;
+    color: rgba(white, 0.9);
+    background-color: rgba(black, 0.8);
+    padding: 0.3em 0.8em;
+    border-radius: 1em;
+  }
+
+  .notification-enter-active, .notification-leave-active {
+    transition:
+      transform 0.2s ease-in-out,
+      opacity .15s ease-in-out;
+  }
+  .notification-enter, .notification-leave-active {
+    opacity: 0;
+    transform: translateY(-2em);
+  }
+
 </style>
 
 <template>
@@ -85,6 +106,12 @@
     <main class="app">
 
       <div class="color-display" :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
+
+        <transition name="notification" mode="out-in">
+          <div class="color-display__notification" v-if="colorWasCopiedToClipBoard">
+            Copied name!
+          </div>
+        </transition>
 
         <div class="color-display__name__container">
           <div
@@ -151,6 +178,7 @@
 
     data: () => ({
       color: undefined,
+      colorWasCopiedToClipBoard: false,
     }),
 
     computed: {
@@ -209,7 +237,16 @@
        */
       copyNameToClipboard () {
         if (!this.colorName) return
+        this.triggerCopyNotification()
         copyToClipboard(this.colorName)
+      },
+
+      triggerCopyNotification () {
+        this.colorWasCopiedToClipBoard = true
+        if (this.notificationTimeout) window.clearTimeout(this.notificationTimeout)
+        this.notificationTimeout = window.setTimeout(_ => {
+          this.colorWasCopiedToClipBoard = false
+        }, 1500)
       },
 
       /**
