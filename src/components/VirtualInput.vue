@@ -1,4 +1,4 @@
-<style lang=scss scoped>
+<style lang="scss" scoped>
 
 @import '../styles/variables.scss';
 
@@ -87,12 +87,13 @@ export default {
     }
   },
 
-  // watch: {
-  //   value (newValue, oldValue) {
-  //     this.inputEl.innerHTML = this.highlightText(newValue)
-  //   },
-  // },
+  watch: {
+    value (newValue) {
+      if (newValue === this.innerText) return
 
+      this.inputEl.innerHTML = this.highlightText(newValue)
+    },
+  },
 
   methods: {
 
@@ -135,6 +136,8 @@ export default {
     },
 
     changeValue (event) {
+      this.textValue = event.target.innerText
+
       let text = event.target.innerText
 
       // Save the current cursor position

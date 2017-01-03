@@ -55,9 +55,15 @@
 
       <div class="color__name">{{ colorName }}</div>
 
+      {{ color }}
       <virtual-input
-        placeholder="Paste your color">
+        placeholder="Paste your color"
+        v-model="color"
+        v-on:input="updateColorFromInput"
+        >
       </virtual-input>
+
+      <button @click="color = '#000'">Set color to black</button>
 
       <!-- <div class="control is&#45;grouped"> -->
         <!--   <button @click="lighten" class="button control">Lighten</button> -->
@@ -105,6 +111,11 @@
     },
 
     methods: {
+
+      updateColorFromInput (color) {
+        console.log(color)
+      },
+
       darken () {
         this.color = lightenDarkenColorLib(this.color, -10)
       },
