@@ -17,10 +17,9 @@
     margin: 1em;
     width: 100%;
 
-    background-color: white;
+    /* background-color: white; */
 
     border-radius: 5px;
-    border: 1px solid $color-border;
     box-shadow: 0 3px 10px 2px rgba(desaturate(darken($color-border, 20%), 40%), 0.2);
 
     > * + * {
@@ -30,7 +29,11 @@
 
   .virtual-input__wrapper {
     position: relative;
-    border-color: inherit
+    border-color: inherit;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid $color-border;
+    border-top: none;
   }
 
   .color-display {
@@ -39,6 +42,11 @@
     justify-content: center;
     align-items: center;
     height: 200px;
+
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    box-shadow: inset 0 0 0 1px rgba(black, 0.15);
+    overflow: hidden;
 
     &__name {
       font-family: 'Menlo', monospace;
