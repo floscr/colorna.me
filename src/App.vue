@@ -129,11 +129,12 @@
   export default {
 
     mounted () {
+      this.color = '#A7C265'
       colorLib.init()
     },
 
     data: () => ({
-      color: '#A7C265',
+      color: undefined,
     }),
 
     computed: {
