@@ -121,7 +121,8 @@ export default {
       // when the content gets changed programaticaly
       restoreSelection(this.inputEl, savedSelection)
 
-      this.value = text
+      // Emit text value throguh the input event
+      this.$emit('input', event.target.innerText)
     },
 
     addEventListeners () {
