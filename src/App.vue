@@ -70,7 +70,8 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
 
-    background-image: radial-gradient(rgba(black, 0.0) 40%, rgba(black, 0.5) 150%);
+    box-shadow: inset 0 0 10em 0 rgba(black, 0.4);
+    /* background-image: radial-gradient(rgba(black, 0.0) 40%, rgba(black, 0.5) 150%); */
   }
 
   .color-display__name__container--is-valid:after {
@@ -81,8 +82,12 @@
     right: 0;
     text-align: center;
 
+    font-family: $font-sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.03em;
     font-size: 0.8em;
     color: white;
+    text-shadow: 0 1px 4px rgba(black, 0.3);
 
     opacity: 0;
     transform: translateY(2em);
