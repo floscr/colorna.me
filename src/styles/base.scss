@@ -11,11 +11,6 @@ html, body {
 html { box-sizing: border-box; }
 *, *:before, *:after { box-sizing: inherit; }
 
-$SanFrancisco: 'BlinkMacSystemFont', -apple-system, BlinkMacSystemFont, sans-serif;
-$Menlo: 'Menlo', monospace;
-
-$font-family: $Menlo;
-
 html {
   font-family: $font-family;
 }

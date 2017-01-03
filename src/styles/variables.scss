@@ -1,3 +1,18 @@
+// ----------------------------------------------------------------------------
+// Fonts
+// ----------------------------------------------------------------------------
+
+$SanFrancisco: 'BlinkMacSystemFont', -apple-system, BlinkMacSystemFont, sans-serif;
+$Menlo: 'Menlo', monospace;
+
+$font-monospace: $Menlo;
+$font-sans-serif: $SanFrancisco;
+$font-family: $font-monospace;
+
+// ----------------------------------------------------------------------------
+// Colors
+// ----------------------------------------------------------------------------
+
 $grey-10: #FDFDFC;
 $grey-50: #CDDAE2;
 
