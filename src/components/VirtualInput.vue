@@ -88,6 +88,12 @@ export default {
   },
 
   watch: {
+    /**
+     * Watch if the value gets changed from outside
+     * Exit when typing into the field
+     *
+     * @param {string} newValue New value from vue
+     */
     value (newValue) {
       if (newValue === this.innerText) return
 
@@ -101,6 +107,7 @@ export default {
      * Add eventlisteners to to the component
      */
     addEventListeners () {
+      this.inputEl.addEventListener('keydown', event => this.changeValue(event))
       this.inputEl.addEventListener('keyup', event => this.changeValue(event))
     },
 
@@ -135,6 +142,9 @@ export default {
       return text
     },
 
+    /**
+     * Change and highlight the innerHTML
+     */
     changeValue (event) {
       this.textValue = event.target.innerText
 
@@ -161,7 +171,6 @@ export default {
       // Emit text value throguh the input event
       this.$emit('input', event.target.innerText)
     },
-
 
   },
 
