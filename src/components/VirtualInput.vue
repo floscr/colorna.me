@@ -85,36 +85,45 @@ export default {
 
   methods: {
 
+    /**
+     * Highlight a string by wrapping characters in span tags
+     *
+     * @param {string} text Input text
+     * @return {string} HTML markup string
+     */
+    highlightText (text) {
+      // Remove all previous html tags
+      text = text.replace(/(<([^>]+)>)/ig, '')
+
+      // Wrap the # symbol at the beginning of the text
+      text = text.replace(
+        /^#/ig,
+        `<span style="color: ${this.colors.highlight}">#</span>`
+      )
+
+      // Highlight rgb with optional a
+      text = text.replace(
+        /^(rgb)(a)?/ig,
+        `<span style="color: ${this.colors.highlight}">$1$2</span>`
+      )
+
+      // Highlight brackets and colons
+      text = text.replace(
+        /([,()])/ig,
+        `<span style="color: ${this.colors.highlight}">$1</span>`
+      )
+
+      return text
+    },
+
     changeValue (event) {
       let text = event.target.innerText
 
       // Save the current cursor position
       const savedSelection = saveSelection(this.inputEl)
 
-      let html = this.inputEl.innerHTML
-
-      // Remove all previous html tags
-      html = html.replace(/(<([^>]+)>)/ig, '')
-
-      // Wrap the # symbol at the beginning of the text
-      html = html.replace(
-        /^#/ig,
-        `<span style="color: ${this.colors.highlight}">#</span>`
-      )
-
-      // Highlight rgb with optional a
-      html = html.replace(
-        /^(rgb)(a)?/ig,
-        `<span style="color: ${this.colors.highlight}">$1$2</span>`
-      )
-
-      // Highlight brackets and colons
-      html = html.replace(
-        /([,()])/ig,
-        `<span style="color: ${this.colors.highlight}">$1</span>`
-      )
-
-      this.inputEl.innerHTML = html
+      // Highlight and adapt the current inner html text
+      this.inputEl.innerHTML = this.highlightText(this.inputEl.innerHTML)
 
       // Restore the cursor position
       // contenteditable resets the cursor position by default
