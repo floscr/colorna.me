@@ -20,7 +20,8 @@
 
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
-  color: #CDDAE2;
+  color: #c6cbce;
+  letter-spacing: -0.01em;
   display: block; /* For Firefox */
 }
 
@@ -60,8 +61,7 @@ export default {
     colors: {
       type: Object,
       default: _ => ({
-        placeholder: '#CDDAE2',
-        highlight: '#CDDAE2',
+        highlight: '#c7cacc',
       }),
     },
   },
