@@ -220,6 +220,8 @@
 
       /**
        * Return the name for a color string
+       *
+       * @return {string} Name from color table
        */
       colorName () {
         if (!this.validHexColor) return
@@ -237,10 +239,7 @@
       },
 
       /**
-       * Return a hex color string if the input color is either a
-       * - Valid hex number
-       *
-       * Convert valid non hex color formats to hex
+       * Convert the color to hex color if the color is valid
        *
        * @return {string} Converted Hex Color
        */
@@ -276,6 +275,11 @@
         copyToClipboard(this.colorName)
       },
 
+      /**
+       * Trigger the fade-in-out of the 'copied' message notification
+       * When this function gets called multiple times reset the notification
+       * animation time
+       */
       triggerCopyNotification () {
         this.colorWasCopiedToClipBoard = true
         if (this.notificationTimeout) window.clearTimeout(this.notificationTimeout)
@@ -285,7 +289,7 @@
       },
 
       /**
-       * Click the hidden color input to trigger the native color picker
+       * Clicks the hidden color input to trigger the native color picker
        */
       launchNativeColorPicker () {
         if (!this.colorInput) {
@@ -294,10 +298,18 @@
         this.colorInput.click()
       },
 
+      /**
+       * Darken the current color by -10 brightness
+       * This function emulates the SCSS darken function
+       */
       darken () {
         this.color = lightenDarkenColor(this.color, -10)
       },
 
+      /**
+       * Lighten the current color by +10 brightness
+       * This function emulates the SCSS lighten function
+       */
       lighten () {
         this.color = lightenDarkenColor(this.color, 10)
       },
@@ -310,5 +322,3 @@
 
   }
 </script>
-
-
