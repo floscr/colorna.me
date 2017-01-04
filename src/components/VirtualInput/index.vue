@@ -68,6 +68,7 @@ export default {
       default: 'Test placeholder',
     },
 
+    // When the color is valid show the 'copy' message in the input field
     isValidColor: {
       type: Boolean,
       default: false,
@@ -79,6 +80,7 @@ export default {
       default: false,
     },
 
+    // Color props
     colors: {
       type: Object,
       default: _ => ({
@@ -92,17 +94,17 @@ export default {
   }),
 
   mounted () {
-    // Get the input element from the components children
+    // Get the input element from the components dom children
     this.inputEl = Array.from(this.$el.children)[0]
 
-    // Update the innerHTML to passed value when its not empty
+    // Insert the passed value property and Highlight it
     if (this.value && this.value !== '') {
       this.innerHTML = this.highlightText(this.value)
     }
 
     this.addEventListeners()
 
-    // Autofocus when the prop is set to true
+    // Autofocus on the input
     if (this.autofocus) {
       this.inputEl.focus()
     }
@@ -110,8 +112,7 @@ export default {
 
   watch: {
     /**
-     * Watch if the value gets changed from outside
-     * Exit when typing into the field
+     * When the color value gets changed from outside update the input value
      *
      * @param {string} newValue New value from vue
      */
@@ -123,9 +124,8 @@ export default {
   },
 
   methods: {
-
     /**
-     * Add eventlisteners to to the component
+     * Add keyboard eventlisteners to to the component
      */
     addEventListeners () {
       this.inputEl.addEventListener('keydown', event => this.changeValue(event))
@@ -133,15 +133,13 @@ export default {
     },
 
     /**
-     * Highlight a string by wrapping characters in span tags
+     * Highlight a string by wrapping specific characters in span tags
+     * Highlighted characters: #,()
      *
      * @param {string} text Input text
      * @return {string} HTML markup string
      */
     highlightText (text) {
-      // Remove all previous html tags
-      // text = text.replace(/(<([^>]+)>)/ig, '')
-
       // Strip newline characters in case they get inserted via clipboard paste
       text = text.replace(/(\r\n|\n|\r)/gm, '');
 
@@ -151,9 +149,9 @@ export default {
         `<span style="color: ${this.colors.highlight}">#</span>`
       )
 
-      // Highlight rgb with optional a
+      // Highlight rgb/hsl with optional a for opacity
       text = text.replace(
-        /^(rgb)(a)?/ig,
+        /^(rgb|hsl)(a)?/ig,
         `<span style="color: ${this.colors.highlight}">$1$2</span>`
       )
 
@@ -167,11 +165,11 @@ export default {
     },
 
     /**
-     * Change and highlight the innerHTML
+     * Change and highlight the input value
      */
     changeValue (event) {
 
-      // Disable enter
+      // Disable enter key
       if (event.which === 13) event.preventDefault()
 
       this.textValue = event.target.innerText
@@ -196,10 +194,14 @@ export default {
         restoreSelection(this.inputEl, savedSelection)
       })
 
-      // Emit text value throguh the input event
+      // Emit the new color value to the parent component
       this.$emit('input', event.target.innerText)
     },
 
+    /**
+     * Emit enterpress event to the parent,
+     * which will take care of copying the value to the clipboard.
+     */
     copyNameToClipboard () {
       this.$emit('enterpress')
     }

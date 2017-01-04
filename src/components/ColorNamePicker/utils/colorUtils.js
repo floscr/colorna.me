@@ -1,25 +1,13 @@
 /* eslint-disable */
 
 /**
- * Return the luma from a hex color string
+ * Lighten / Darken a color by an amout
+ * Emulates the Sass Darken/Brighten functions
  *
- * @param {string} color Hex color with #
- * @returns {Int} Luma value 0 - 100 where:
- *                0 = Darkest
- *                255 = Brightest
+ * @param {string} col HEX color string with optional '#'
+ * @param {int} amt Amount if color shift
+ * @return {string} Shifted color value
  */
-export function lumaFromColor (color) {
-  const c = color.substring(1) // strip #
-  const rgb = parseInt(c, 16)  // convert rrggbb to decimal
-  const r = (rgb >> 16) & 0xff // extract red
-  const g = (rgb >>  8) & 0xff // extract green
-  const b = (rgb >>  0) & 0xff // extract blue
-
-  const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b // per ITU-R BT.709
-
-  return luma
-}
-
 export function lightenDarkenColor(col, amt) {
 
   var usePound = false;

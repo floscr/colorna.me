@@ -1,6 +1,12 @@
+/* eslint-disable */
 import rangy from 'rangy'
 
-/* eslint-disable */
+/**
+ * Save a cursor position in the given input field to restore later.
+ *
+ * @param {obj} containerEl Dom Node of the input field
+ * @return {obj} Object with the range of the seclection start & end
+ */
 export function saveSelection(containerEl) {
     var charIndex = 0, start = 0, end = 0, foundStart = false, stop = {};
     var sel = rangy.getSelection(), range;
@@ -39,6 +45,13 @@ export function saveSelection(containerEl) {
     };
 }
 
+/**
+ * Restore a cursor position
+ *
+ * @param {obj} containerEl Dom Node of the input field
+ * @param {obj} savedSel Saved object with range start & end vaues
+ * @return {obj} Object with the range of the seclection start & end
+ */
 export function restoreSelection(containerEl, savedSel) {
     var charIndex = 0, range = rangy.createRange(), foundStart = false, stop = {};
     range.collapseToPoint(containerEl, 0);
