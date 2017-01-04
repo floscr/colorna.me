@@ -110,6 +110,12 @@
     border: 1px solid rgba(black, 0.1);
 
     box-shadow: 0 1px 2px 1px rgba(black, 0.1);
+
+    transition: transform 0.1s ease-in-out;
+    &:hover {
+      transform: scale(1.2);
+    }
+
   }
 
   .color-display__notification {
