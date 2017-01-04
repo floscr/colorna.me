@@ -1,0 +1,50 @@
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+@import './variables.scss';
+
+html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+html { box-sizing: border-box; }
+*, *:before, *:after { box-sizing: inherit; }
+
+html {
+  font-family: $font-family;
+}
+
+$placeholder-color: desaturate(darken($grey-50, 8%), 8%);
+::-webkit-input-placeholder { font-family: $font-family; color: $placeholder-color }
+::-moz-placeholder { font-family: $font-family; color: $placeholder-color }
+:-ms-input-placeholder { font-family: $font-family; color: $placeholder-color }
+:-moz-placeholder { font-family: $font-family; color: $placeholder-color }
+
+input, button {
+  display: block;
+  appearance: none;
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+img {
+  display: block;
+}
+
+// Virtualy hidden element,
+// vue cant update inputs that are display: none
+.virtually-hidden {
+  width: 0;
+  height: 0;
+  outline: 0;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
