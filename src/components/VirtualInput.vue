@@ -29,6 +29,10 @@
   font-weight: 500;
 }
 
+// Show info only on input focus
+.info { display: none; }
+.input:focus + .info { display: block; }
+
 [contenteditable=true]:empty:before{
   content: attr(placeholder);
   color: #c6cbce;
@@ -44,9 +48,10 @@
       class="input"
       :placeholder="placeholder"
       v-html="innerHTML"
+      @keyup.enter="copyNameToClipboard"
       contenteditable="true">
     </div>
-    <div class="info" v-if="isValidColor">Press enter to Copy name</div>
+    <div class="info" v-if="isValidColor">Press enter to copy name</div>
   </div>
 </template>
 
@@ -195,6 +200,10 @@ export default {
       // Emit text value throguh the input event
       this.$emit('input', event.target.innerText)
     },
+
+    copyNameToClipboard () {
+      this.$emit('enterpress')
+    }
 
   },
 

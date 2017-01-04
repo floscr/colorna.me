@@ -55,6 +55,54 @@
     }
   }
 
+  .color-display__name__container--is-valid {
+    cursor: pointer;
+  }
+
+  .color-display__name__container--is-valid:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    box-shadow: inset 0 0 10em 0 rgba(black, 0.4);
+    /* background-image: radial-gradient(rgba(black, 0.0) 40%, rgba(black, 0.5) 150%); */
+  }
+
+  .color-display__name__container--is-valid:after {
+    content: 'Click to copy name to clipboard!';
+    position: absolute;
+    bottom: 0.8em;
+    left: 0;
+    right: 0;
+    text-align: center;
+
+    font-family: $font-sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.03em;
+    font-size: 0.8em;
+    color: white;
+    text-shadow: 0 1px 4px rgba(black, 0.3);
+
+    opacity: 0;
+    transform: translateY(2em);
+    transition: all 0.28s ease-in-out;
+  }
+
+  .color-display__name__container--is-valid:hover:before, {
+    opacity: 1;
+  }
+
+  .color-display__name__container--is-valid:hover:after {
+    opacity: 1;
+    transform: none;
+  }
+
   .color-display__message {
     text-align: center;
     font-weight: 100;
@@ -71,10 +119,35 @@
     position: absolute;
     bottom: 0.8em;
     right: 0.8em;
-    border-radius: 100%;
+
+    cursor: pointer;
     overflow: hidden;
+
+    border-radius: 100%;
     border: 1px solid rgba(black, 0.1);
+
     box-shadow: 0 1px 2px 1px rgba(black, 0.1);
+  }
+
+  .color-display__notification {
+    position: absolute;
+    left: 0.7em;
+    top: 0.7em;
+    font-size: 0.85rem;
+    color: rgba(white, 0.9);
+    background-color: rgba(black, 0.8);
+    padding: 0.3em 0.8em;
+    border-radius: 1em;
+  }
+
+  .notification-enter-active, .notification-leave-active {
+    transition:
+      transform 0.2s ease-in-out,
+      opacity .15s ease-in-out;
+  }
+  .notification-enter, .notification-leave-active {
+    opacity: 0;
+    transform: translateY(-2em);
   }
 
 </style>
@@ -84,9 +157,18 @@
 
     <main class="app">
 
-      <div class="color-display" :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
+      <div
+        class="color-display"
+        @click="copyNameToClipboard"
+        :style="{ backgroundColor: validHexColor ? validHexColor : '#F8F9FA'  }">
 
-        <div class="color-display__name__container">
+        <transition name="notification" mode="out-in">
+          <div class="color-display__notification" v-if="colorWasCopiedToClipBoard">
+            Copied name!
+          </div>
+        </transition>
+
+        <div class="color-display__name__container" :class="validHexColor ? 'color-display__name__container--is-valid' : ''">
           <div
             class="color-display__name"
             :style="{ color: colorDisplayNameTextColor }"
@@ -98,7 +180,7 @@
           </div>
           <div class="color-display__message color-display__message--is-invalid" v-else>
             Not a valid color: '{{ color }}'<br>
-            <small class="color-display__message__hint">Allowed formats are: HEX, rgb(a)</small>
+            <small class="color-display__message__hint">Allowed formats: HEX, rgb(a), hsl(a)</small>
           </div>
         </div>
 
@@ -113,7 +195,8 @@
         <virtual-input
           placeholder="Paste your color"
           autofocus
-          :is-valid-color="validHexColor"
+          :is-valid-color="validHexColor ? true : false"
+          @enterpress="copyNameToClipboard"
           v-model="color"
           >
         </virtual-input>
@@ -130,11 +213,15 @@
 </template>
 
 <script>
-  import colorLib from './components/Color/colorLib'
-  import { lightenDarkenColor, lumaFromColor } from './components/Color/colorUtils'
-
+  // Packages
   import tinycolor from 'tinycolor2'
+  import copyToClipboard from 'copy-to-clipboard'
 
+  // Utilities
+  import colorLib from './components/Color/colorLib'
+  import { lightenDarkenColor } from './components/Color/colorUtils'
+
+  // Components
   import VirtualInput from './components/VirtualInput.vue'
 
   export default {
@@ -146,6 +233,7 @@
 
     data: () => ({
       color: undefined,
+      colorWasCopiedToClipBoard: false,
     }),
 
     computed: {
@@ -198,12 +286,22 @@
 
     methods: {
 
-      darken () {
-        this.color = lightenDarkenColor(this.color, -10)
+      /**
+       * Copy the current Color name to the clipboard
+       * https://www.npmjs.com/package/clipboard
+       */
+      copyNameToClipboard () {
+        if (!this.colorName) return
+        this.triggerCopyNotification()
+        copyToClipboard(this.colorName)
       },
 
-      lighten () {
-        this.color = lightenDarkenColor(this.color, 10)
+      triggerCopyNotification () {
+        this.colorWasCopiedToClipBoard = true
+        if (this.notificationTimeout) window.clearTimeout(this.notificationTimeout)
+        this.notificationTimeout = window.setTimeout(_ => {
+          this.colorWasCopiedToClipBoard = false
+        }, 1500)
       },
 
       /**
@@ -214,6 +312,14 @@
           this.colorInput = this.$el.querySelector('input[type=color]')
         }
         this.colorInput.click()
+      },
+
+      darken () {
+        this.color = lightenDarkenColor(this.color, -10)
+      },
+
+      lighten () {
+        this.color = lightenDarkenColor(this.color, 10)
       },
 
     },
