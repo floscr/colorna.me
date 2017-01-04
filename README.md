@@ -1,8 +1,8 @@
-# Colorno.me Website
+# Colorna.me Website
 
 ![colornames logo](./material/colorwheel-icon.png)
 
-Repository for [colornam.es](https://colornam.es)
+Repository for [colorna.me](https://colorna.me)
 
 A little tool to get the name for a color value (hex, rgb, hsl).
 
