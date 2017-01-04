@@ -1,4 +1,4 @@
-<a href="./material/colorwheel-icon.png" style="text-align: center"></a>
+![colornames logo](./material/colorwheel-icon.png)
 
 # Colorno.me Website
 
