@@ -13,7 +13,10 @@ $font-family: $font-monospace;
 // Colors
 // ----------------------------------------------------------------------------
 
-$grey-10: #FDFDFC;
-$grey-50: #CDDAE2;
+$grey-10:   #FDFDFC;
+$grey-50:   #CDDAE2;
+$grey-100:  #666F80;
 
 $color-border: $grey-50;
+$color-message-text: $grey-100;
+$color-info-text: $grey-100;

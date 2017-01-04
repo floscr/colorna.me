@@ -88,7 +88,7 @@
   .color-display__message {
     text-align: center;
     font-weight: 100;
-    color: #666F80;
+    color: $color-message-text;
     line-height: 1.5;
     // Text below the message
     &__hint {
