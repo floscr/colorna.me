@@ -34,6 +34,7 @@
 
   [contenteditable=true]:empty:before{
     content: attr(placeholder);
+    pointer-events: none;
     color: #c6cbce;
     letter-spacing: -0.01em;
     display: block; /* For Firefox */
