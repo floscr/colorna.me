@@ -27,3 +27,7 @@ If you want to add/specify color names, just do a pull request 😼
     > would reset the cursor to the start of the field.
     > With rangy the cursor postion could be restored.
   + [vue-github-corners](https://github.com/Roeefl/vue-github-corners)
+
+## Thanks to
+
+[netlify](https://www.netlify.com) for their free open-source hosting and CI 🙏
