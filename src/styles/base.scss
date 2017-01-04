@@ -33,9 +33,16 @@ input, button {
   background-color: transparent;
 }
 
+// Remove the firefox default button inner padding...
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
 img {
   display: block;
 }
+
 
 // Virtualy hidden element,
 // vue cant update inputs that are display: none
