@@ -1,6 +1,6 @@
-![colornames logo](./material/colorwheel-icon.png)
-
 # Colorno.me Website
+
+![colornames logo](./material/colorwheel-icon.png)
 
 Repository for [colornam.es](https://colornam.es)
 
