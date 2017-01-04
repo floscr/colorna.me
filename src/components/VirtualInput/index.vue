@@ -1,45 +1,43 @@
 <style lang="scss" scoped>
+  @import '../../styles/variables.scss';
 
-@import '../styles/variables.scss';
+  .virtual-input {
+    font-size: 1em;
+    overflow: hidden;
+  }
 
-.virtual-input {
-  font-size: 1em;
-  overflow: hidden;
-}
+  .input {
+    width: 100%;
+    padding: 0.6em 0.55em;
 
-.input {
-  width: 100%;
-  padding: 0.6em 0.55em;
+    font-size: 1.6em;
+    font-family: 'Menlo', monospace;
+    font-weight: 100;
 
-  font-size: 1.6em;
-  font-family: 'Menlo', monospace;
-  font-weight: 100;
+    outline: none;
+  }
 
-  outline: none;
-}
+  .info {
+    position: absolute;
+    bottom: 0.6em;
+    right: 0.5em;
 
-.info {
-  position: absolute;
-  bottom: 0.6em;
-  right: 0.5em;
+    font-family: $font-sans-serif;
+    opacity: 0.35;
+    font-size: 0.7em;
+    font-weight: 500;
+  }
 
-  font-family: $font-sans-serif;
-  opacity: 0.35;
-  font-size: 0.7em;
-  font-weight: 500;
-}
+  // Show info only on input focus
+  .info { display: none; }
+  .input:focus + .info { display: block; }
 
-// Show info only on input focus
-.info { display: none; }
-.input:focus + .info { display: block; }
-
-[contenteditable=true]:empty:before{
-  content: attr(placeholder);
-  color: #c6cbce;
-  letter-spacing: -0.01em;
-  display: block; /* For Firefox */
-}
-
+  [contenteditable=true]:empty:before{
+    content: attr(placeholder);
+    color: #c6cbce;
+    letter-spacing: -0.01em;
+    display: block; /* For Firefox */
+  }
 </style>
 
 <template>
@@ -57,7 +55,7 @@
 
 <script>
 
-import { saveSelection, restoreSelection } from './cursorUtil.js'
+import { saveSelection, restoreSelection } from './utils/cursorHelper.js'
 
 export default {
   props: {
