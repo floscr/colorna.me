@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from 'src/App'
 
 // Google Analytics
-import VueAnalytics, { loadScript } from 'vue-anaylics'
+import VueAnalytics, { loadScript } from 'vue-analytics'
 Vue.use(VueAnalytics)
 loadScript('UA-89852478-1')
 
