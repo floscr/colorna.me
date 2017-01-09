@@ -1,13 +1,13 @@
-import { name } from 'src/components/ColorNamePicker/utils/colorLib.js'
+import colorName from 'src/components/ColorNamePicker/utils/colorLib.js'
 
 describe('colorLib', () => {
 
   it('#FFFFFF should return white', () => {
-    expect(name('FFFFFF')).to.equal('Black')
+    expect(colorName('FFFFFF')).to.equal('White')
   })
 
   it('#000000 should return black', () => {
-    expect(name('000000')).to.equal('Black')
+    expect(colorName('000000')).to.equal('Black')
   })
 
 })
