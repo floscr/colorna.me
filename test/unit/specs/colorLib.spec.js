@@ -10,4 +10,6 @@ describe('colorLib', () => {
     expect(colorName('000000')).to.equal('Black')
   })
 
+  console.log(colorName('#e20047'))
+
 })
